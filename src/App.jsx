@@ -4,5 +4,5 @@ export default function App() {
       <h1>WH40K Armory</h1>
       <p>Base del proyecto lista.</p>
     </div>
-  );
+  )
 }
