@@ -1,8 +1,14 @@
-export default function App() {
+import { Routes, Route } from 'react-router-dom';
+import Catalog from './pages/Catalog';
+
+function App() {
   return (
-    <div className="container py-5">
-      <h1>WH40K Armory</h1>
-      <p>Base del proyecto lista.</p>
-    </div>
-  )
+    <Routes>
+      {/* Temporal: Persona 1 reemplaza "/" por Home y agrega Navbar */}
+      <Route path="/" element={<Catalog />} />
+      <Route path="/products" element={<Catalog />} />
+    </Routes>
+  );
 }
+
+export default App;
