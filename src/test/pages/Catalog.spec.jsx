@@ -1,13 +1,20 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Catalog from '../../pages/Catalog';
+import CartProvider from '../../context/CartProvider';
 import products from '../../data/products';
 
 describe('Catalog (integración)', () => {
+    beforeEach(() => {
+    localStorage.clear();
+    });
+
     const renderCatalog = () =>
     render(
         <MemoryRouter>
-        <Catalog />
+        <CartProvider>
+            <Catalog />
+        </CartProvider>
         </MemoryRouter>
     );
 
