@@ -18,7 +18,10 @@ describe('Catalog (integración)', () => {
         </MemoryRouter>
     );
 
-    const getCardTitles = () => screen.getAllByRole('heading', { level: 5 });
+    const getCardTitles = () => screen.queryAllByRole('heading', { level: 5 });
+
+    const search = (text) =>
+    fireEvent.change(screen.getByLabelText('Buscar arma'), { target: { value: text } });
 
     it('muestra todas las armas al inicio', () => {
     renderCatalog();
@@ -35,5 +38,28 @@ describe('Catalog (integración)', () => {
     expect(titles.length).toBe(expected.length);
     expect(titles[0]).toHaveTextContent(expected[0].name);
     expect(screen.queryByText('Bolter')).toBeNull();
+    });
+
+    it('combina la búsqueda por nombre con el filtro de facción', () => {
+    renderCatalog();
+    const bySearch = products.filter((p) => p.name.toLowerCase().includes('sword'));
+    const bySearchAndChaos = bySearch.filter((p) => p.faction === 'Chaos');
+
+    search('sword');
+    expect(getCardTitles().length).toBe(bySearch.length);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Chaos' }));
+    expect(getCardTitles().length).toBe(bySearchAndChaos.length);
+    expect(screen.getByText('No se encontraron armas con esos filtros.')).toBeTruthy();
+    });
+
+    it('la búsqueda no distingue mayúsculas', () => {
+    renderCatalog();
+
+    search('BOLT');
+
+    const titles = getCardTitles();
+    expect(titles.length).toBe(1);
+    expect(titles[0]).toHaveTextContent('Bolter');
     });
 });
