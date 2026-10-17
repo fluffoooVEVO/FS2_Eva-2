@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-    "scripts": {
+  "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -30,6 +30,7 @@
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "babel-loader": "^10.1.1",
+    "babel-plugin-istanbul": "^7.0.1",
     "css-loader": "^7.1.5",
     "eslint": "^10.10.0",
     "eslint-plugin-react-hooks": "^7.1.1",
