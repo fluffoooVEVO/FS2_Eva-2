@@ -1,6 +1,7 @@
 import { Container, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { formatPrice } from '../utils/formatPrice';
 
 function Cart() {
     const { cart, removeFromCart, changeQuantity, clearCart, totalPrice } = useCart();
@@ -28,11 +29,9 @@ function Cart() {
                                     className="img-fluid rounded mb-3"
                                     style={{ maxWidth: '150px' }}
                                 />
-                                <p>Precio: ${product.price.toLocaleString('es-CL')}</p>
+                                <p>Precio: {formatPrice(product.price)}</p>
                                 <p>Cantidad: {product.quantity}</p>
-                                <p>
-                                    Subtotal: ${(product.price * product.quantity).toLocaleString('es-CL')}
-                                </p>
+                                <p>Subtotal: {formatPrice(product.price * product.quantity)}</p>
 
                                 <div className="d-flex gap-2">
                                     <Button
@@ -62,7 +61,7 @@ function Cart() {
                         </Card>
                     ))}
 
-                    <h4>Total: ${totalPrice.toLocaleString('es-CL')}</h4>
+                    <h4>Total: {formatPrice(totalPrice)}</h4>
 
                     <Button variant="danger" onClick={clearCart}>
                         Vaciar carrito
