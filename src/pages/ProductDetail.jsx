@@ -5,6 +5,7 @@ import Image from '../components/atoms/Image';
 import Text from '../components/atoms/Text';
 import Button from '../components/atoms/Button';
 import { useCart } from '../context/CartContext';
+import { formatPrice } from '../utils/formatPrice';
 
 function ProductDetail() {
     const { id } = useParams();
@@ -23,10 +24,7 @@ function ProductDetail() {
     }
 
     const agotado = product.stock === 0;
-    const formattedPrice = product.price.toLocaleString('es-CL', {
-    style: 'currency',
-    currency: 'CLP',
-    });
+    const formattedPrice = formatPrice(product.price);
 
     return (
     <Container className="my-5">

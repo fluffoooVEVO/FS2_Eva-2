@@ -1,10 +1,8 @@
 import Text from '../atoms/Text';
+import { formatPrice } from '../../utils/formatPrice';
 
 function CardBody({ title, faction, type, price }) {
-    const formattedPrice = price.toLocaleString('es-CL', {
-    style: 'currency',
-    currency: 'CLP',
-    });
+    const formattedPrice = formatPrice(price);
 
     return (
     <>
