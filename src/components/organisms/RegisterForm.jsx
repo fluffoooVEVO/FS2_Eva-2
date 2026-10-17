@@ -2,8 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Form, Alert } from 'react-bootstrap';
 import FormField from '../molecules/FormField';
 import Button from '../atoms/Button';
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { EMAIL_PATTERN } from '../../utils/validation';
 
 function RegisterForm({ onRegister = () => {} }) {
     const {
