@@ -39,6 +39,10 @@ function StoreNavbar() {
                         <Nav.Link as={Link} to="/contact">
                             Contacto
                         </Nav.Link>
+
+                        <Nav.Link as={Link} to="/ofertas">
+                            Ofertas
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

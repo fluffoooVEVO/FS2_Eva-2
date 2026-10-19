@@ -1,4 +1,4 @@
-const products = [
+const initialProducts = [
     {
     id: 1,
     name: 'Bolter',
@@ -15,6 +15,7 @@ const products = [
     faction: 'Imperium',
     type: 'Pesada',
     price: 120000,
+    previousPrice: 140000,
     stock: 3,
     description: 'Cañón láser de alta potencia diseñado para perforar blindaje de vehículos.',
     image: 'https://placehold.co/400x300?text=Lascannon',
@@ -55,6 +56,7 @@ const products = [
     faction: 'Imperium',
     type: 'Cuerpo a cuerpo',
     price: 95000,
+    previousPrice: 110000,
     stock: 4,
     description: 'Hoja envuelta en un campo de energía que corta casi cualquier material.',
     image: 'https://placehold.co/400x300?text=Power+Sword',
@@ -95,6 +97,7 @@ const products = [
     faction: 'Orks',
     type: 'Pesada',
     price: 35000,
+    previousPrice: 42000,
     stock: 15,
     description: 'Ametralladora ruidosa y poco precisa, pero con muchísimas balas.',
     image: 'https://placehold.co/400x300?text=Big+Shoota',
@@ -115,10 +118,72 @@ const products = [
     faction: "T'au",
     type: 'A distancia',
     price: 72000,
+    previousPrice: 85000,
     stock: 9,
     description: 'Rifle de pulsos de plasma con gran alcance y precisión.',
     image: 'https://placehold.co/400x300?text=Pulse+Rifle',
     },
 ];
 
-export default products;
+// ---------- Persistencia simulada (CRUD) ----------
+const STORAGE_KEY = 'wh40k-products';
+
+function loadProducts() {
+    try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [...initialProducts];
+    } catch {
+    return [...initialProducts];
+    }
+}
+
+function saveProducts(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+
+// READ: todos los productos
+export function getProducts() {
+    return loadProducts();
+}
+
+// READ: un producto por id (null si no existe)
+export function getProductById(id) {
+    return loadProducts().find((p) => p.id === Number(id)) ?? null;
+}
+
+// CREATE: agrega un producto con el siguiente id disponible
+export function createProduct(data) {
+    const list = loadProducts();
+    const nextId = Math.max(0, ...list.map((p) => p.id)) + 1;
+    const product = { ...data, id: nextId };
+    saveProducts([...list, product]);
+    return product;
+}
+
+// UPDATE: modifica un producto existente (null si no existe)
+export function updateProduct(id, changes) {
+    const list = loadProducts();
+    const index = list.findIndex((p) => p.id === Number(id));
+    if (index === -1) return null;
+    const updated = { ...list[index], ...changes, id: list[index].id };
+    const next = [...list];
+    next[index] = updated;
+    saveProducts(next);
+    return updated;
+}
+
+// DELETE: elimina un producto (false si no existía)
+export function deleteProduct(id) {
+    const list = loadProducts();
+    const next = list.filter((p) => p.id !== Number(id));
+    if (next.length === list.length) return false;
+    saveProducts(next);
+    return true;
+}
+
+// Vuelve a los datos iniciales (útil para pruebas y demo)
+export function resetProducts() {
+    localStorage.removeItem(STORAGE_KEY);
+}
+
+export default initialProducts;
