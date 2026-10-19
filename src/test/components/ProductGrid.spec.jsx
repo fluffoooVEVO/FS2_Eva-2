@@ -1,10 +1,9 @@
 import { screen } from '@testing-library/react';
-import ProductGrid from '../../components/organisms/ProductGrid';
-import { renderWithRouter } from '../helpers/renderWithRouter';
-import { mockProducts } from '../mocks/products.mock';
+import ProductGrid from '../../../components/organisms/ProductGrid';
+import { renderWithRouter } from '../../helpers/renderWithRouter';
+import { mockProducts } from '../../mocks/products.mock';
 
 describe('ProductGrid', () => {
-  // Renderizado de listas: una tarjeta por cada producto del arreglo
   it('renderiza una tarjeta por cada producto recibido', () => {
     renderWithRouter(<ProductGrid products={mockProducts} onAdd={() => {}} />);
 
@@ -12,7 +11,6 @@ describe('ProductGrid', () => {
     expect(screen.getByText('Chainaxe de Prueba')).toBeTruthy();
   });
 
-  // Renderizado condicional: si no hay productos, muestra un mensaje en vez de la grilla
   it('muestra un mensaje cuando la lista de productos está vacía', () => {
     renderWithRouter(<ProductGrid products={[]} onAdd={() => {}} />);
 
