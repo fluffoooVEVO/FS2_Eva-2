@@ -2,9 +2,9 @@ import { Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import Text from '../atoms/Text';
 
-function ProductGrid({ products, onAdd }) {
+function ProductGrid({ products, onAdd, emptyMessage = 'No hay armas para esta facción.' }) {
     if (products.length === 0) {
-    return <Text variant="p" className="text-muted">No hay armas para esta facción.</Text>;
+    return <Text variant="p" className="text-muted">{emptyMessage}</Text>;
     }
 
     return (
@@ -16,6 +16,7 @@ function ProductGrid({ products, onAdd }) {
         ))}
     </Row>
     );
+
 }
 
 export default ProductGrid;
