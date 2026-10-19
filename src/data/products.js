@@ -1,4 +1,4 @@
-const products = [
+const initialProducts = [
     {
     id: 1,
     name: 'Bolter',
@@ -121,4 +121,65 @@ const products = [
     },
 ];
 
-export default products;
+// ---------- Persistencia simulada (CRUD) ----------
+const STORAGE_KEY = 'wh40k-products';
+
+function loadProducts() {
+    try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [...initialProducts];
+    } catch {
+    return [...initialProducts];
+    }
+}
+
+function saveProducts(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+
+// READ: todos los productos
+export function getProducts() {
+    return loadProducts();
+}
+
+// READ: un producto por id (null si no existe)
+export function getProductById(id) {
+    return loadProducts().find((p) => p.id === Number(id)) ?? null;
+}
+
+// CREATE: agrega un producto con el siguiente id disponible
+export function createProduct(data) {
+    const list = loadProducts();
+    const nextId = Math.max(0, ...list.map((p) => p.id)) + 1;
+    const product = { ...data, id: nextId };
+    saveProducts([...list, product]);
+    return product;
+}
+
+// UPDATE: modifica un producto existente (null si no existe)
+export function updateProduct(id, changes) {
+    const list = loadProducts();
+    const index = list.findIndex((p) => p.id === Number(id));
+    if (index === -1) return null;
+    const updated = { ...list[index], ...changes, id: list[index].id };
+    const next = [...list];
+    next[index] = updated;
+    saveProducts(next);
+    return updated;
+}
+
+// DELETE: elimina un producto (false si no existía)
+export function deleteProduct(id) {
+    const list = loadProducts();
+    const next = list.filter((p) => p.id !== Number(id));
+    if (next.length === list.length) return false;
+    saveProducts(next);
+    return true;
+}
+
+// Vuelve a los datos iniciales (útil para pruebas y demo)
+export function resetProducts() {
+    localStorage.removeItem(STORAGE_KEY);
+}
+
+export default initialProducts;

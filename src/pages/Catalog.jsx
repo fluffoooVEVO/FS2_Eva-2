@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import products from '../data/products';
+import { getProducts } from '../data/products';
 import Text from '../components/atoms/Text';
 import SearchBar from '../components/molecules/SearchBar';
 import FilterBar from '../components/organisms/FilterBar';
@@ -11,6 +11,7 @@ import { useCart } from '../context/CartContext';
 const FACTIONS = ['Todas', 'Imperium', 'Chaos', 'Orks', 'Aeldari', "T'au"];
 
 function Catalog() {
+    const products = getProducts();
     const [faction, setFaction] = useState('Todas');
     const [query, setQuery] = useState('');
     const { addToCart, totalItems } = useCart();
