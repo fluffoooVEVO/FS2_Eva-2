@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import CardBody from '../../../components/molecules/CardBody';
-import { render } from '@testing-library/react';
 
 describe('CardBody', () => {
   // Props: recibe los datos y los muestra; el precio se formatea como moneda chilena
