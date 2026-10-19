@@ -8,7 +8,7 @@ import Register from './pages/Register';
 import Contact from './pages/Contact';
 import StoreNavbar from './components/organisms/StoreNavbar';
 import StoreFooter from './components/organisms/StoreFooter';
-
+import Offers from './pages/Offers';
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/ofertas" element={<Offers />} />
         </Routes>
       </main>
       <StoreFooter />
