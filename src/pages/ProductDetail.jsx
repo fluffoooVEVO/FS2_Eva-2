@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
-import products from '../data/products';
+import { getProductById } from '../data/products';
 import Image from '../components/atoms/Image';
 import Text from '../components/atoms/Text';
 import Button from '../components/atoms/Button';
@@ -10,7 +10,7 @@ import { formatPrice } from '../utils/formatPrice';
 function ProductDetail() {
     const { id } = useParams();
     const { addToCart } = useCart();
-    const product = products.find((p) => p.id === Number(id));
+    const product = getProductById(id);
 
     if (!product) {
     return (
