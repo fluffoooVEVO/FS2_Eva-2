@@ -16,6 +16,7 @@ function ProductCard({ product, onAdd = () => {} }) {
             faction={product.faction}
             type={product.type}
             price={product.price}
+            previousPrice={product.previousPrice}
         />
         <div className="mt-auto pt-3 d-flex gap-2">
             <Button as={Link} to={`/products/${product.id}`} variant="outline-secondary" size="sm">
