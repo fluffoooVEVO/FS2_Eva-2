@@ -8,7 +8,8 @@ import Register from './pages/Register';
 import Contact from './pages/Contact';
 import StoreNavbar from './components/organisms/StoreNavbar';
 import StoreFooter from './components/organisms/StoreFooter';
-
+import Checkout from './pages/Checkout';
+import CheckoutResult from './pages/CheckoutResult';
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout/exito" element={<CheckoutResult status="success" />} />
+          <Route path="/checkout/error" element={<CheckoutResult status="error" />} />
         </Routes>
       </main>
       <StoreFooter />

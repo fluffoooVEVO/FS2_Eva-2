@@ -62,6 +62,9 @@ function Cart() {
                     ))}
 
                     <h4>Total: {formatPrice(totalPrice)}</h4>
+                    <Button as={Link} to="/checkout" variant="success" className="mt-2">
+                    Ir a pagar
+                    </Button>
 
                     <Button variant="danger" onClick={clearCart}>
                         Vaciar carrito
